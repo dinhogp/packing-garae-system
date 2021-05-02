@@ -1,0 +1,4 @@
+{
+    "jwtPrivateKey":"packing-garage-jwt",
+    "db":"packing-garage"
+}
