@@ -1,4 +1,4 @@
 {
-    "jwtPrivateKey": "1234",
+    "jwtPrivateKey":"packing-garage-jwt",
     "db": "mongodb://mongodb:27017/packing-garage"
 }

@@ -4,6 +4,7 @@
   "description": "A backend implementation of a car pack booking system",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -25,6 +26,7 @@
     "joi-objectid": "^3.0.1",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.21",
-    "mongoose": "^5.12.7"
+    "mongoose": "^5.12.7",
+    "nodemon": "^2.0.7"
   }
 }
