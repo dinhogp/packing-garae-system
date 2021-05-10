@@ -76,17 +76,17 @@ const reservationSchema = new mongoose.Schema({
 const Reservation = mongoose.model('Reservation',reservationSchema);
 
 function validateReservation(reservation){
-    const schema = {
+    const schema = Joi.object({
         spot: Joi.objectId().required(),
         vehicle: Joi.objectId().required(),
         start_time: Joi.date(),
         end_time: Joi.date(),
         paid: Joi.boolean(),
         rental_fee: Joi.string()
-    };
+    });
 
-    return Joi.validate(reservation,schema);
+    return schema.validate(reservation);
 }
 
 exports.Reservation = Reservation;
-exports.validateReservation = validateReservation;
+exports.validate = validateReservation;

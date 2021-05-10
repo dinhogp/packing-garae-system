@@ -16,15 +16,15 @@ const garageSchema = new mongoose.Schema({
 var Garage = mongoose.model('Garage',garageSchema);
 
 function validateGarage(garage){
-    const schema = {
+    const schema = Joi.object({
         zipcode: Joi.string().min(3).max(20).required(),
         rate_compact: Joi.string().required(),
         rate_regular: Joi.string().required(),
         rate_large: Joi.string().required()
-    };
+    });
 
-    return Joi.validate(garage,schema); 
+    return schema.validate(garage); 
 }
 
 exports.Garage = Garage;
-exports.validateGarage = validateGarage;
+exports.validate = validateGarage;

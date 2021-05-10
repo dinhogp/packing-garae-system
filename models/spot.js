@@ -31,14 +31,14 @@ const spotSchema = new mongoose.Schema({
 const Spot = mongoose.model('Spot',spotSchema);
 
 function validateSpot(spot){
-    const schema = {
+    const schema = Joi.object({
         garage: Joi.objectId().required(),
         vehicle_type: Joi.string().valid('compact','regular','large'),
         status: Joi.string().valid('Occupied','Empty')
-    };
+    });
 
-    return Joi.validate(spot, schema);
+    return schema.validate(spot);
 }
 
 exports.Spot = Spot;
-exports.validateSpot = validateSpot;
+exports.validate = validateSpot;
