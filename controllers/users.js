@@ -33,15 +33,10 @@ router.post('/', async(req,res)=>{
 Function for auth user login
 **/
 router.post('/login', async(req, res) => {
-    console.log('HERE-1');
     const {error} = validateLogin(req.body);
-    console.log('HERE-2');
-    console.log('before',req.body);
-    // console.log('ERROR',error.details[0].message);
     if(error) return res.status(400).send(error.details[0].message);
 
     const user = await User.findOne({email:req.body.email});
-    console.log('HERE-3');
     if(!user) return res.status(400).send('Invalid email or password');
 
     const validPassword = await bcrypt.compare(req.body.password,user.password);

@@ -1,19 +1,19 @@
 const request = require('supertest');
 const mongoose = require('mongoose');
-const {User} = require('../../models/user');
+const {User} = require('../models/user');
+const expect = require('expect.js');
 
 let server;
 
 describe('/api/users',() => {
     beforeEach(()=>{
-        server = require('../../index');
+        server = require('../index');
     });
 
     afterEach(async()=>{
         server.close();
-        await User.deleteMany({},()=>{
-            console.log('All documents successfully deleted');
-        });
+        await User.deleteMany({});
+        
     });
 
     describe('GET /',()=>{
@@ -26,10 +26,11 @@ describe('/api/users',() => {
             await User.collection.insertMany(users);
             const res = await request(server).get('/api/users');
 
-            expect(res.status).toBe(200);
-            expect(res.body.length).toBe(2);
-            expect(res.body.some(g => g.first_name === 'John')).toBeTruthy();
-            expect(res.body.some(g => g.first_name === 'James')).toBeTruthy();
+            expect(res.status).to.be(200);
+            expect(res.body.length).to.be(2);
+            expect(res.body.some(g => g.first_name === 'John')).to.be(true);
+            expect(res.body.some(g => g.first_name === 'James')).to.be(true);
+            
         });
     });
 
@@ -40,8 +41,8 @@ describe('/api/users',() => {
 
             const res = await request(server).get('/api/users/' + user._id);
 
-            expect(res.status).toBe(200);
-            expect(res.body).toHaveProperty('first_name',user.first_name);
+            expect(res.status).to.be(200);
+            expect(res.body).to.have.property('first_name',user.first_name);
 
         });
 
@@ -50,7 +51,7 @@ describe('/api/users',() => {
             const id = mongoose.Types.ObjectId();
             const res = await request(server).get('/api/users/'+id);
 
-            expect(res.status).toBe(404);
+            expect(res.status).to.be(404);
         });
     });
 
@@ -72,21 +73,21 @@ describe('/api/users',() => {
             user = {first_name: 'John', last_name: 'Doe'};
 
             const res = await exec();
-            expect(res.status).toBe(400);
+            expect(res.status).to.be(400);
         });
 
         it('should return 400 if email is not valid', async ()=>{
             user = {first_name: 'John', last_name: 'Doe', email: 'abc12345678', password: 'arithmetic123'};
 
             const res = await exec();
-            expect(res.status).toBe(400);
+            expect(res.status).to.be(400);
         });
 
         it('should save the user if input is valid', async ()=>{
             const res = await exec();
 
             const user = await User.find({first_name: 'John'});
-            expect(user).not.toBeNull();
+            expect(user).not.to.be(null);
         });
 
         it('should return 400 if login is not successful', async () =>{
@@ -96,19 +97,19 @@ describe('/api/users',() => {
                                 .post('/api/users/login')
                                 .send({email:'test@example.com',password:'pa55w0rd'});
             
-            expect(res.status).toBe(400);
+            expect(res.status).to.be(400);
         });
 
         it('should return 200 if login is successful', async () => {
 
             await exec();
 
-            console.log('after',user);
+            // console.log('after',user);
             const loginData = {email: 'abc1234@yahoo.com', password: 'arithmetic123'};
             const res = await request(server)
                                 .post('/api/users/login')
                                 .send(loginData);
-            expect(res.status).toBe(200);
+            expect(res.status).to.be(200);
         });
     });
 
@@ -139,21 +140,21 @@ describe('/api/users',() => {
             token = '';
 
             let res = await exec();
-            expect(res.status).toBe(401);
+            expect(res.status).to.be(401);
         });
 
         it('should return 400 if firstName is less than 2', async ()=>{
             newFirstName = 'a';
             let res = await exec();
 
-            expect(res.status).toBe(400);
+            expect(res.status).to.be(400);
         });
 
         it('should return 404 if id is invalid', async ()=>{
             id = 1;
 
             let res = await exec();
-            expect(res.status).toBe(404);
+            expect(res.status).to.be(404);
         });
 
         it('should update the user if the new firstname is valid', async ()=>{
@@ -163,14 +164,14 @@ describe('/api/users',() => {
             // console.log('user',user);
             const updatedUser = await User.findById(user._id);
             // console.log('updatedUser',updatedUser);
-            expect(updatedUser.first_name).toBe(newFirstName);
+            expect(updatedUser.first_name).to.be(newFirstName);
         });
 
         it('should return user if update is successful', async () => {
             let res = await exec();
 
-            expect(res.body).toHaveProperty('_id');
-            expect(res.body).toHaveProperty('first_name',newFirstName);
+            expect(res.body).to.have.property('_id');
+            expect(res.body).to.have.property('first_name',newFirstName);
         });
 
         it('should return 200 if password is changed succesfully', async () => {
@@ -180,7 +181,7 @@ describe('/api/users',() => {
                 .put('/api/users/new/password')
                 .send({'email':user.email,'password':newPassword});
             
-            expect(res.status).toBe(200);
+            expect(res.status).to.be(200);
         });
         
     });
@@ -209,21 +210,21 @@ describe('/api/users',() => {
             id = 1;
 
             let res = await exec();
-            expect(res.status).toBe(404);
+            expect(res.status).to.be(404);
         });
 
         it('should return 200 and the user if id is valid',async ()=>{
             let res = await exec();
             let deletedUser = await User.findById(id);
-            expect(res.status).toBe(200);
-            expect(deletedUser).toBeNull();
+            expect(res.status).to.be(200);
+            expect(deletedUser).to.be(null);
         });
 
         it('should return the removed user',async ()=>{
             let res = await exec();
 
-            expect(res.body).toHaveProperty('_id',user._id.toHexString());
-            expect(res.body).toHaveProperty('first_name',user.first_name);
+            expect(res.body).to.have.property('_id',user._id.toHexString());
+            expect(res.body).to.have.property('first_name',user.first_name);
         });
     });
 

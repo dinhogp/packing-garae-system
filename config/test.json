@@ -1,4 +1,4 @@
 {
     "jwtPrivateKey": "1234",
-    "db": "mongodb://localhost/packing-garage"
+    "db": "mongodb://localhost/packing-garage-test"
 }
