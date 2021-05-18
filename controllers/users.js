@@ -1,8 +1,8 @@
 const validateObjectId = require('../middleware/validateObjectId');
 const auth = require('../middleware/auth');
-const bcrypt = require('bcrypt');
-const _ = require('lodash');
 const {User,validate} = require('../models/user');
+const bcrypt = require('bcryptjs');
+const _ = require('lodash');
 const Joi = require('joi');
 const express = require('express');
 

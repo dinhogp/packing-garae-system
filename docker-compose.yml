@@ -12,6 +12,8 @@ services:
       - 3000:3000
     volumes:
       - .:/usr/src/app
+    depends_on:
+      - mongodb
     links:
       - mongodb
   mongodb:

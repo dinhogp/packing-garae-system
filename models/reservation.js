@@ -32,13 +32,13 @@ const reservationSchema = new mongoose.Schema({
                 first_name:{
                     type: String,
                     required: true,
-                    minlength: 5,
+                    minlength: 2,
                     maxlength: 50
                 },
                 last_name:{
                     type: String,
                     required: true,
-                    minlength: 5,
+                    minlength: 2,
                     maxlength: 50
                 }
             }),
