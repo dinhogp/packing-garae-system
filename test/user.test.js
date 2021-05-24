@@ -13,14 +13,13 @@ describe('/api/users',() => {
     afterEach(async()=>{
         server.close();
         await User.deleteMany({});
-        
     });
 
     describe('GET /',()=>{
         it('should return all users', async ()=>{
             const users = [
-                {first_name: 'John', last_name: 'Doe', email: 'abc1234@yahoo.com', password: 'arithmetic123'},
-                {first_name: 'James', last_name: 'Parker', email: 'parker1234@yahoo.com', password: 'arithmetic123'}
+                {first_name: 'Joen', last_name: 'Poe', email: 'def1234@yahoo.com', password: 'arithmetic123', admin: true},
+                {first_name: 'James', last_name: 'Parker', email: 'parker1234@yahoo.com', password: 'arithmetic123', admin: false}
             ];
 
             await User.collection.insertMany(users);
@@ -28,7 +27,7 @@ describe('/api/users',() => {
 
             expect(res.status).to.be(200);
             expect(res.body.length).to.be(2);
-            expect(res.body.some(g => g.first_name === 'John')).to.be(true);
+            expect(res.body.some(g => g.first_name === 'Joen')).to.be(true);
             expect(res.body.some(g => g.first_name === 'James')).to.be(true);
             
         });
@@ -36,7 +35,7 @@ describe('/api/users',() => {
 
     describe('GET /:id',()=>{
         it('should return the user if valid id is passed', async ()=>{
-            const user = new User({first_name: 'John', last_name: 'Doe', email: 'abc1234@yahoo.com', password: 'arithmetic123'});
+            const user = new User({first_name: 'John', last_name: 'Doe', email: 'abc1234@yahoo.com', password: 'arithmetic123', admin: true});
             await user.save();
 
             const res = await request(server).get('/api/users/' + user._id);
@@ -66,7 +65,7 @@ describe('/api/users',() => {
         };
 
         beforeEach(() => {
-            user = {first_name: 'John', last_name: 'Doe', email: 'abc1234@yahoo.com', password: 'arithmetic123'};
+            user = {first_name: 'John', last_name: 'Doe', email: 'abc1234@yahoo.com', password: 'arithmetic123', admin: true};
         });
 
         it('should return 400 if the input is not valid',async ()=>{
@@ -77,7 +76,7 @@ describe('/api/users',() => {
         });
 
         it('should return 400 if email is not valid', async ()=>{
-            user = {first_name: 'John', last_name: 'Doe', email: 'abc12345678', password: 'arithmetic123'};
+            user = {first_name: 'John', last_name: 'Doe', email: 'abc12345678', password: 'arithmetic123', admin: true};
 
             const res = await exec();
             expect(res.status).to.be(400);
@@ -128,7 +127,7 @@ describe('/api/users',() => {
 
         beforeEach(async ()=>{
             //Before each test we need to create a user in the database
-            user = new User({first_name: 'John', last_name: 'Doe', email: 'abc1234@yahoo.com', password: 'arithmetic123'});
+            user = new User({first_name: 'John', last_name: 'Doe', email: 'abc1234@yahoo.com', password: 'arithmetic123',admin: true});
             await user.save();
 
             token = user.generateAuthToken();
@@ -199,7 +198,7 @@ describe('/api/users',() => {
         };
 
         beforeEach(async ()=>{
-            user = new User({first_name: 'John', last_name: 'Doe', email: 'abc1234@yahoo.com', password: 'arithmetic123'});
+            user = new User({first_name: 'John', last_name: 'Doe', email: 'abc1234@yahoo.com', password: 'arithmetic123', admin: true});
             await user.save();
 
             id = user._id;

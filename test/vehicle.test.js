@@ -19,7 +19,7 @@ describe('/api/vehicles', ()=>{
 
     describe('GET /', ()=>{
         it('should return all vehicles', async ()=>{
-            const user = new User({first_name: 'John', last_name: 'Doe', email: 'abc1234@yahoo.com', password: 'arithmetic123'});
+            const user = new User({first_name: 'John', last_name: 'Doe', email: 'abc1234@yahoo.com', password: 'arithmetic123',admin: true});
             await user.save();
             
             const vehicles = [
@@ -55,7 +55,7 @@ describe('/api/vehicles', ()=>{
 
     describe('GET /:id ',()=>{
         it('should return the vehicle if the valid id is passed', async () =>{
-            const user = new User({first_name: 'John', last_name: 'Doe', email: 'abc1234@yahoo.com', password: 'arithmetic123'});
+            const user = new User({first_name: 'John', last_name: 'Doe', email: 'abc1234@yahoo.com', password: 'arithmetic123', admin: true});
             await user.save();
 
             const vehicle = new Vehicle({
@@ -75,7 +75,7 @@ describe('/api/vehicles', ()=>{
             expect(res.body).to.have.property('license',vehicle.license);
         });
 
-        it('should return 404 if id is not found in user database', async () =>{
+        it('should return 404 if id is not found in vehicle database', async () =>{
             const id = mongoose.Types.ObjectId();
             const res = await request(server).get('/api/vehicles/'+id);
 
@@ -96,7 +96,7 @@ describe('/api/vehicles', ()=>{
         };
 
         beforeEach(async ()=>{
-            user = new User({first_name: 'John', last_name: 'Doe', email: 'abc1234@yahoo.com', password: 'arithmetic123'});
+            user = new User({first_name: 'John', last_name: 'Doe', email: 'abc1234@yahoo.com', password: 'arithmetic123', admin: true});
             await user.save();
             
             token = user.generateAuthToken();
@@ -146,7 +146,7 @@ describe('/api/vehicles', ()=>{
 
         beforeEach(async ()=>{
             //Before each test we need to creata vehicle record in the database
-            user = new User({first_name: 'John', last_name: 'Doe', email: 'abc1234@yahoo.com', password: 'arithmetic123'});
+            user = new User({first_name: 'John', last_name: 'Doe', email: 'abc1234@yahoo.com', password: 'arithmetic123', admin: true});
             await user.save();
 
             token = user.generateAuthToken();
@@ -216,7 +216,7 @@ describe('/api/vehicles', ()=>{
 
         beforeEach(async ()=>{
             //Before each test we need to creata vehicle record in the database
-            user = new User({first_name: 'John', last_name: 'Doe', email: 'abc1234@yahoo.com', password: 'arithmetic123'});
+            user = new User({first_name: 'John', last_name: 'Doe', email: 'abc1234@yahoo.com', password: 'arithmetic123', admin: true});
             await user.save();
 
             token = user.generateAuthToken();
