@@ -10,7 +10,10 @@ const spotSchema = new mongoose.Schema({
                 required:true,
                 minlength: 3,
                 maxlength:20
-            }
+            },
+            rate_compact:{type: String,required:true},
+            rate_regular:{type:String,required:true},
+            rate_large:{type:String,required:true} 
         }),
         required: true
     },
@@ -31,7 +34,7 @@ const Spot = mongoose.model('Spot',spotSchema);
 
 function validateSpot(spot){
     const schema = Joi.object({
-        garage: Joi.objectId().required(),
+        garage: Joi.object().required(),
         vehicle_type: Joi.string().valid('compact','regular','large'),
         status: Joi.string().valid('Occupied','Empty'),
         rate: Joi.string().required()
