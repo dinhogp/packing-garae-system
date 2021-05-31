@@ -10,11 +10,16 @@ const router = express.Router();
 
 router.post('/', auth, async (req,res) =>{
     if(!req.user.admin) return res.status(403).send('This function is restricted to only admin users');
-
     const {error} = validate(req.body);
     
+    // console.log("ERROR",error.details[0].message);
     if (error) return res.status(400).send(error.details[0].message);
-    let garage = new Garage(req.body);
+
+    let garage = await Garage.find({prefix:req.body.prefix}); 
+
+    if (garage.length > 0) return res.status(400).send("A garage with the same prefix already exist.");
+
+    garage = new Garage(req.body);
     await garage.save();
 
     return res.status(200).send(req.body);
@@ -62,6 +67,7 @@ function validateUpdateGarage(req){
     const schema = Joi.object({
         alias: Joi.string().min(3),
         location: Joi.string().min(5),
+        prefix: Joi.string().min(1).max(5),
         zipcode: Joi.string().min(3).max(20),
         rate_compact: Joi.string(),
         rate_regular: Joi.string(),

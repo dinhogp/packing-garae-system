@@ -11,6 +11,7 @@ const spotSchema = new mongoose.Schema({
                 minlength: 3,
                 maxlength:20
             },
+            prefix:{type: String,minlength:1,maxlength:5,required:true},
             rate_compact:{type: String,required:true},
             rate_regular:{type:String,required:true},
             rate_large:{type:String,required:true} 

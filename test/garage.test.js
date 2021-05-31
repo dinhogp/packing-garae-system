@@ -24,6 +24,7 @@ describe('/api/garage',()=>{
                     alias: "Porto Livramento",
                     zipcode: "4050",
                     location: "27.2046N,77.4977E",
+                    prefix:"PL",
                     rate_compact: "0.10",
                     rate_regular: "0.22",
                     rate_large: "0.34"
@@ -32,6 +33,7 @@ describe('/api/garage',()=>{
                     alias: "London Bridge",
                     zipcode: "E16AN",
                     location: "0.5123S,12.3109E",
+                    prefix:"LB",
                     rate_compact: "0.15",
                     rate_regular: "0.27",
                     rate_large: "0.41"
@@ -54,6 +56,7 @@ describe('/api/garage',()=>{
             const garage = new Garage({
                 alias: "Porto Livramento",
                 zipcode: "4050",
+                prefix: "PL",
                 location: "27.2046N,77.4977E",
                 rate_compact: "0.10",
                 rate_regular: "0.22",
@@ -96,6 +99,7 @@ describe('/api/garage',()=>{
             garage = {
                 alias: "Porto Livramento",
                 zipcode: "4050",
+                prefix: "PL",
                 location: "27.2046N,77.4977E",
                 rate_compact: "0.10",
                 rate_regular: "0.22",
@@ -113,14 +117,14 @@ describe('/api/garage',()=>{
             garage = {
                 alias: "Porto Livramento",
                 zipcode: "4050",
+                prefix: "PL",
                 rate_compact: "0.10",
                 rate_regular: "0.22",
                 rate_large: "0.34"
             };
 
             const res = await exec();
-            // console.log(res);
-            // console.log("TOKEN",token);
+
             expect(res.status).to.be(400);
         });
 
@@ -134,7 +138,9 @@ describe('/api/garage',()=>{
         });
 
         it('should save the garage if the input is valid', async () => {
-            await exec();
+            
+            // console.log('HERE');
+            let res = await exec();
 
             const new_garage = await Garage.find({alias:"Porto Livramento"});
             expect(new_garage).to.not.be.empty();
@@ -163,6 +169,7 @@ describe('/api/garage',()=>{
                 alias: "Porto Livramento",
                 zipcode: "4050",
                 location: "27.2046N,77.4977E",
+                prefix: "PL",
                 rate_compact: "0.10",
                 rate_regular: "0.22",
                 rate_large: "0.34"
@@ -237,6 +244,7 @@ describe('/api/garage',()=>{
                 alias: "Porto Livramento",
                 zipcode: "4050",
                 location: "27.2046N,77.4977E",
+                prefix: "PL",
                 rate_compact: "0.10",
                 rate_regular: "0.22",
                 rate_large: "0.34"

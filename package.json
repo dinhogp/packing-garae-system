@@ -6,7 +6,7 @@
   "scripts": {
     "build": "",
     "start": "npm run test & nodemon index.js",
-    "test": "NODE_ENV=test mocha  --exit"
+    "test": "NODE_ENV=test mocha --exit"
   },
   "repository": {
     "type": "git",

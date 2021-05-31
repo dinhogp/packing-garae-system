@@ -27,6 +27,7 @@ describe('/api/spots', ()=>{
             const garage = new Garage({
                 alias: "Porto Livramento",
                 zipcode: "4050",
+                prefix: "PL",
                 location: "27.2046N,77.4977E",
                 rate_compact: "0.10",
                 rate_regular: "0.22",
@@ -41,6 +42,7 @@ describe('/api/spots', ()=>{
                         _id:garage._id,
                         alias: garage.alias,
                         zipcode: garage.zipcode,
+                        prefix: garage.prefix,
                         rate_compact: garage.rate_compact,
                         rate_regular: garage.rate_regular,
                         rate_large: garage.rate_large
@@ -54,6 +56,7 @@ describe('/api/spots', ()=>{
                         _id:garage._id,
                         alias: garage.alias,
                         zipcode: garage.zipcode,
+                        prefix: garage.prefix,
                         rate_compact: garage.rate_compact,
                         rate_regular: garage.rate_regular,
                         rate_large: garage.rate_large
@@ -80,6 +83,7 @@ describe('/api/spots', ()=>{
             const garage = new Garage({
                 alias: "Porto Livramento",
                 zipcode: "4050",
+                prefix: "PL",
                 location: "27.2046N,77.4977E",
                 rate_compact: "0.10",
                 rate_regular: "0.22",
@@ -93,6 +97,7 @@ describe('/api/spots', ()=>{
                     _id:garage._id,
                     alias: garage.alias,
                     zipcode: garage.zipcode,
+                    prefix: garage.prefix,
                     rate_compact: garage.rate_compact,
                     rate_regular: garage.rate_regular,
                     rate_large: garage.rate_large
@@ -138,6 +143,7 @@ describe('/api/spots', ()=>{
             garage = new Garage({
                 alias: "Porto Livramento",
                 zipcode: "4050",
+                prefix: "PL",
                 location: "27.2046N,77.4977E",
                 rate_compact: "0.10",
                 rate_regular: "0.22",
@@ -150,6 +156,7 @@ describe('/api/spots', ()=>{
                     _id:garage._id,
                     alias: garage.alias,
                     zipcode: garage.zipcode,
+                    prefix: garage.prefix,
                     rate_compact: garage.rate_compact,
                     rate_regular: garage.rate_regular,
                     rate_large: garage.rate_large
@@ -180,6 +187,7 @@ describe('/api/spots', ()=>{
                     _id:garage._id,
                     alias: garage.alias,
                     zipcode: garage.zipcode,
+                    prefix: garage.prefix,
                     rate_compact: garage.rate_compact,
                     rate_regular: garage.rate_regular,
                     rate_large: garage.rate_large
@@ -226,6 +234,7 @@ describe('/api/spots', ()=>{
             let garage = new Garage({
                 alias: "Porto Livramento",
                 zipcode: "4050",
+                prefix: "PL",
                 location: "27.2046N,77.4977E",
                 rate_compact: "0.10",
                 rate_regular: "0.22",
@@ -238,6 +247,7 @@ describe('/api/spots', ()=>{
                     _id:garage._id,
                     alias: garage.alias,
                     zipcode: garage.zipcode,
+                    prefix: garage.prefix,
                     rate_compact: garage.rate_compact,
                     rate_regular: garage.rate_regular,
                     rate_large: garage.rate_large
@@ -329,6 +339,7 @@ describe('/api/spots', ()=>{
             let garage = new Garage({
                 alias: "Porto Livramento",
                 zipcode: "4050",
+                prefix: "PL",
                 location: "27.2046N,77.4977E",
                 rate_compact: "0.10",
                 rate_regular: "0.22",
@@ -341,6 +352,7 @@ describe('/api/spots', ()=>{
                     _id:garage._id,
                     alias: garage.alias,
                     zipcode: garage.zipcode,
+                    prefix: garage.prefix,
                     rate_compact: garage.rate_compact,
                     rate_regular: garage.rate_regular,
                     rate_large: garage.rate_large

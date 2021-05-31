@@ -4,6 +4,12 @@ const mongoose = require('mongoose');
 const reservationSchema = new mongoose.Schema({
     spot:{
         type: new mongoose.Schema({
+            garage:{
+                type: new mongoose.Schema({
+                    prefix:{type: String,minlength:1,maxlength:5,unique:true,required:true},
+                }),
+                required: true
+            },
             vehicle_type:{
                 type: String,
                 enum: ['compact','regular','large'],
